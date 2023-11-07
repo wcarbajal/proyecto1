@@ -5,9 +5,28 @@ function RegisterPage() {
 
   const { register, handleSubmit, formState:{errors} } = useForm();
 
-  const onSubmit = handleSubmit (data => {
-    console.log(data);
+  const onSubmit = handleSubmit ( async data => {
+    if (data.password !== data.confirmPassword) {
+        return alert("Passwords do not match")
+    }
+
+
+    const res = await fetch("/api/auth/register", {
+        method: 'POST',
+        body: JSON.stringify({
+            username: data.username,
+            email: data.email,
+            password: data.password
+        }),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    
+    const resJson = await res.json();
+    console.log(" El resJson: ", resJson);
+
   });
+
+  
 
   return (
     <div className='h-[calc(100vh-7rem)] flex justify-center items-center'>
@@ -37,7 +56,7 @@ function RegisterPage() {
           }
 
         <label htmlFor='confirmPassword' className='text-slate-500 mb-2 block text-sm'> Confirm password </label>
-        <input placeholder='Repite password' type="confirmPassword" {...register("confirmPassword", { required: {value: true, message:"Confirmaciòn es requerido"} })}
+        <input placeholder='Repite password' type="confirmPassword" {...register("confirmPassword", { required: {value: true, message:"Confirmaciòn es requerido"}})}
           className='p-3 rounded border block mb-2 bg-slate-900 text-slate-900 w-full' />
           {
             errors.confirmPassword && (<span className='text-red-500'> {errors.confirmPassword.message} </span>)
