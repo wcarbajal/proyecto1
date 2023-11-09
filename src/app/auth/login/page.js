@@ -16,7 +16,7 @@ function LoginPage() {
             redirect: false,
         })
 
-        console.log(res);
+        console.log("Aqui empieza el res: ",res);
     });
 
     return (
@@ -38,7 +38,7 @@ function LoginPage() {
                     errors.password && (<span className='text-red-500'> {errors.password.message} </span>)
                 }
                 <button className="w-full bg-blue-500 p-2 mt-2 text-white font-bold mb-4 rounded-lg border">
-                    Register
+                    Ingresar
                 </button>
 
             </form>

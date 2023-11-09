@@ -1,12 +1,12 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "@/libs/db";
-import {PrismaClient} from "@prisma/client";
 import NextAuth from "next-auth/next";
 
-const prisma = new PrismaClient();
+
 
 const authOptions ={
     providers: [
+        
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -14,9 +14,9 @@ const authOptions ={
                 password: {label:"Password", type: "password", placeholder: "*****"}
             },
             async authorize(credentials, req) {
-                console.log(credentials);
+                console.log("Aqui empieza credentials", credentials);
                 
-                const userFound = await prisma.user.findUnique({
+                const userFound = await db.user.findUnique({
                     where: {
                         email: credentials.email
                     }
