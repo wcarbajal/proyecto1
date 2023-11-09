@@ -15,7 +15,11 @@ function LoginPage() {
             password: data.password,
             redirect: false,
         })
-
+            if (res.error) {
+                alert(res.error)
+            }else{
+                console.log("Enviando a /dashboard");
+            }
         console.log("Aqui empieza el res: ",res);
     });
 
