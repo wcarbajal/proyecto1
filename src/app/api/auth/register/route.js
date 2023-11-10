@@ -7,7 +7,7 @@ export async function POST(request) {
 
     try {
         const data = await request.json();
-        /*console.log( data);*/
+        
 
 
         const emailFound = await db.user.findUnique({

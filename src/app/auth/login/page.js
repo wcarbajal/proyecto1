@@ -15,7 +15,7 @@ function LoginPage() {
     const [error, setError] = useState(null)
 
     const onSubmit = handleSubmit (async data => {
-        console.log(data)
+        
 
         const res = await signIn('credentials', {
             email: data.email,
@@ -25,15 +25,15 @@ function LoginPage() {
             if (res.error) {
                 setError(res.error)
             }else{
-                console.log("Enviando a /dashboard");
+                
                 router.push('/dashboard');
             }
-        console.log("Aqui empieza el res: ", res);
+
     });
 
     return (
         <div className='h-[calc(100vh-7rem)] flex justify-center items-center'>
-            <form onSubmit={onSubmit} className='w-1/4'>
+            <form onSubmit={onSubmit} className='auto'>
 
 
                 <h1 className='text-slate-200 font-bold text-3xl mb-4 pt-2'>Login</h1>
