@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "@/libs/db";
 import NextAuth from "next-auth/next";
+import bcrypt from "bcrypt";
 
 
 
@@ -22,7 +23,13 @@ const authOptions ={
                     }
                 })
 
-                if(!userFound) return null;
+                if(!userFound) throw new Error("Usuario no existe");
+
+                console.log(userFound);
+
+                const matchPassword = await bcrypt.compare(credentials.password, userFound.password);
+
+                if(!matchPassword) throw new Error("Password errado")
 
                 return {
                     id: userFound.id,
@@ -35,6 +42,9 @@ const authOptions ={
         }),
         
     ],
+    pages: {
+        signIn: "/auth/login",
+    }
 };
 
 const handler = NextAuth(authOptions);
